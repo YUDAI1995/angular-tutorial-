@@ -42,3 +42,12 @@ Angular用のコードスニペットを追加
 
 - angular2-inline  
 コンポーネントのインラインテンプレート内でのシンタックスハイライトを有効
+
+## command
+
+### ng generate module app-routing --flat --module=app
+ng generate module : module(app.module.tsと同様のもの)を作成。 Angularの設定を行うファイル  
+--flat : app直下にファイルのみ作成するというオプション (フォルダを作成しない)  
+--module=app : app.module.tsのinmportsに作成するapp-moduleを追加するというオプション 
+
+### ng generate component [component name]

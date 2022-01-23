@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Member } from '../member';
 import { MemberService } from '../member.service';
+import { MessageService } from '../message.service';
 
 @Component({
   selector: 'app-members',
@@ -10,9 +11,12 @@ import { MemberService } from '../member.service';
 export class MembersComponent implements OnInit {
   members?: Member[];
 
-  selectedMember?: Member;
+  // selectedMember?: Member;
 
-  constructor(private memberService: MemberService) {
+  constructor(
+    private memberService: MemberService,
+    // private messageService: MessageService
+    ) {
     // private memberService: MemberService
     //  -> 依存性注入 【DI】 Dependency Injection
     // コンポーネント間の依存性を解決して外部のクラスを簡単に利用できるようにするソフトウェアパターン
@@ -25,9 +29,10 @@ export class MembersComponent implements OnInit {
     this.getMembers();
   }
 
-  onSelect(member: Member): void {
-    this.selectedMember = member;
-  }
+  // onSelect(member: Member): void {
+  //   this.selectedMember = member;
+  //   this.messageService.add(`MembersComponenr: 社員データ(id = ${member.id})が選択されました`)
+  // }
 
   // mock からデータを取得
   getMembers() :void {
