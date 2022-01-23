@@ -25,3 +25,20 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+
+## VScode extensions
+- Angular 2 TypeScript Emmet  
+TypeScriptのテンプレート内でEmmetを有効化します。
+
+- Angular Essentials  
+Angularの拡張機能がセットになったもの。
+Editor Configやtslint、ファイルのパス補完などを有効化します。
+
+- Angular Language Service  
+Angular APIのコード補完を追加します。
+
+- Angular v5 Snippets  
+Angular用のコードスニペットを追加します。
+
+- angular2-inline  
+コンポーネントのインラインテンプレート内でのシンタックスハイライトを有効にします。
