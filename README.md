@@ -28,17 +28,17 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 ## VScode extensions
 - Angular 2 TypeScript Emmet  
-TypeScriptのテンプレート内でEmmetを有効化します。
+TypeScriptのテンプレート内でEmmetを有効化
 
 - Angular Essentials  
 Angularの拡張機能がセットになったもの。
-Editor Configやtslint、ファイルのパス補完などを有効化します。
+Editor Configやtslint、ファイルのパス補完などを有効化
 
 - Angular Language Service  
-Angular APIのコード補完を追加します。
+Angular APIのコード補完を追加
 
 - Angular v5 Snippets  
-Angular用のコードスニペットを追加します。
+Angular用のコードスニペットを追加
 
 - angular2-inline  
-コンポーネントのインラインテンプレート内でのシンタックスハイライトを有効にします。
+コンポーネントのインラインテンプレート内でのシンタックスハイライトを有効
