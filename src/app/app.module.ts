@@ -3,6 +3,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms'; //Formのモジュールをアプリに適用
 import { HttpClientModule } from '@angular/common/http';
 
+// データサーバーをシミュレートする機能
+import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
+import { InMemoryDataService } from './in-memory-data.service';
 
 import { AppComponent } from './app.component';
 import { MembersComponent } from './members/members.component';
@@ -23,6 +26,9 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     BrowserModule,
     FormsModule,
     HttpClientModule,
+    HttpClientInMemoryWebApiModule.forRoot(
+      InMemoryDataService, {dataEncapsulation: false}
+    ),
     AppRoutingModule, // 追加
   ],
   providers: [],

@@ -34,4 +34,9 @@ export class MemberDatailComponent implements OnInit {
   goBack(): void {
     this.location.back();
   }
+
+  save(): void {
+    this.memberService.updateMember(this.member!)
+    .subscribe(() => this.goBack())
+  }
 }

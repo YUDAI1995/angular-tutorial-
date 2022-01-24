@@ -7,14 +7,25 @@ import { Observable, of } from 'rxjs';
 import { Member } from './member';
 import { MEMBERS } from './mock.members';
 import { MessageService } from './message.service';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { catchError, map, tap } from 'rxjs/operators';
 
 // サービスがアプリの中のどこで使用されるかを記載する
 @Injectable({
-  providedIn: 'root' // root -> アプリケーション全体で使用できる
+  providedIn: 'root', // root -> アプリケーション全体で使用できる
 })
 export class MemberService {
+  private membersUrl = 'api/members';
+  httpOptions = {
+    headers: new HttpHeaders({
+      'Content-type': 'applicaton/json',
+    }),
+  };
 
-  constructor(private messageService: MessageService) { }
+  constructor(
+    private http: HttpClient,
+    private messageService: MessageService
+  ) {}
 
   // 同期処理
   // getMembers() :Member[] {
@@ -22,20 +33,55 @@ export class MemberService {
   // }
 
   // データ取得を非同期処理に -> RX.jsの機能を用いて非同期処理を行う
-  getMembers() :Observable<Member[]> {
+  getMembers(): Observable<Member[]> {
     // Observable : Rx.jsというライブラリで提供される
 
-    this.messageService.add('MemberService: "社員一覧サービスを取得しました。')
+    // this.messageService.add('MemberService: "社員一覧サービスを取得しました。');
 
-    return of(MEMBERS);
     // of 関数 : 実行の際、渡した値をObservableに変換して返す関数
+    //return of(MEMBERS);
 
+    // httpクライアント   httpクライアントではリクエスト後にObservableが帰ってくる（Rx.jsを使用して構成されているため）
+    return this.http.get<Member[]>(this.membersUrl).pipe(
+      tap((members) => this.log(`社員データを取得しました`)),
+      catchError(this.handleError<Member[]>('getMembers', [])) // Getメソッド処理がエラーの時のみ指定したthis.handleErrorメソッドが実行される
+    );
   }
 
   getMember(id: number): Observable<Member | undefined> {
-    this.messageService.add(`MemberService: 社員データ(id = ${id})を取得しました`);
+    this.messageService.add(
+      `MemberService: 社員データ(id = ${id})を取得しました`
+    );
+    const url = `${this.membersUrl}/${id}`;
 
-    return of(MEMBERS.find(member => member.id === id))
+    // return of(MEMBERS.find((member) => member.id === id));
+    return this.http.get<Member>(url).pipe(
+      tap((_) => this.log(`社員データ(id=${id})を取得しました`)),
+      catchError(this.handleError<Member>(`getMember id=${id}`))
+    );
+
+    //
   }
 
+  updateMember(member: Member): Observable<any> {
+    return this.http.put(this.membersUrl, member, this.httpOptions).pipe(
+      tap((_) => this.log(`社員データ(id=${member.id})を変更しました`)),
+      catchError(this.handleError<any>('updateMember'))
+    );
+  }
+
+  private log(message: string) {
+    this.messageService.add(`MemberService: ${message}`);
+  }
+
+  // operation引数は実行したhttpリクエストメソッドが入る
+  // result引数はエラーによってアプリが止まらないように安全な値をコンポーネントに返すようにする
+  private handleError<T>(opration = 'oparation', result?: T) {
+    return (error: any): Observable<T> => {
+      console.error(error);
+
+      this.log(`${opration} 失敗: ${error.body.error}`);
+      return of(result as T); // 型キャスト
+    };
+  }
 }
