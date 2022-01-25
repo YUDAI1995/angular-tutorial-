@@ -33,7 +33,7 @@ export class MemberService {
   // }
 
   // データ取得を非同期処理に -> RX.jsの機能を用いて非同期処理を行う
-  getMembers(): Observable<Member[]> {
+  public getMembers(): Observable<Member[]> {
     // Observable : Rx.jsというライブラリで提供される
 
     // this.messageService.add('MemberService: "社員一覧サービスを取得しました。');
@@ -48,7 +48,7 @@ export class MemberService {
     );
   }
 
-  getMember(id: number): Observable<Member | undefined> {
+  public getMember(id: number): Observable<Member | undefined> {
     this.messageService.add(
       `MemberService: 社員データ(id = ${id})を取得しました`
     );
@@ -63,10 +63,45 @@ export class MemberService {
     //
   }
 
-  updateMember(member: Member): Observable<any> {
+  public updateMember(member: Member): Observable<any> {
     return this.http.put(this.membersUrl, member, this.httpOptions).pipe(
       tap((_) => this.log(`社員データ(id=${member.id})を変更しました`)),
       catchError(this.handleError<any>('updateMember'))
+    );
+  }
+
+  public addMember(member: Member): Observable<Member> {
+    return this.http
+      .post<Member>(this.membersUrl, member, this.httpOptions)
+      .pipe(
+        tap((newMember: Member) =>
+          this.log(`社員データ(id=${newMember.id})を追加しました`)
+        ),
+        catchError(this.handleError<Member>('addMember'))
+      );
+  }
+
+  public deleteMember(member: Member | number): Observable<Member> {
+    const id = typeof member === 'number' ? member : member.id;
+    const url = `${this.membersUrl}/${id}`;
+
+    return this.http
+      .delete<Member>(url, this.httpOptions)
+      .pipe(
+        tap(
+          (_) => this.log(`社員データ(id=${id}}を削除しました)`),
+          catchError(this.handleError<Member>('deleteMember'))
+        )
+      );
+  }
+
+  public searchMembers(term: string): Observable<Member[]> {
+    if (!term.trim()) {
+      return of([]);
+    }
+    return this.http.get<Member[]>(`${this.membersUrl}/?name=${term}`).pipe(
+      tap((_) => this.log(`${term}にマッチする社員データが見つかりました`)),
+      catchError(this.handleError<Member[]>('searchMember', []))
     );
   }
 
