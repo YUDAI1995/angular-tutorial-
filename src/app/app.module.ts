@@ -1,40 +1,73 @@
-import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule, ViewChild } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms'; //Formのモジュールをアプリに適用
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
-// データサーバーをシミュレートする機能
-import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
-import { InMemoryDataService } from './in-memory-data.service';
-
 import { AppComponent } from './app.component';
-import { MembersComponent } from './members/members.component';
-import { MemberDatailComponent } from './member-datail/member-datail.component';
-import { MessagesComponent } from './messages/messages.component';
+import { RecordDatailComponent } from './record-datail/record-datail.component';
+import { HistoryComponent } from './history/history.component';
 import { AppRoutingModule } from './app-routing.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { MemberSearchComponent } from './member-search/member-search.component';
+import { MemberSearchComponent } from './record-search/record-search.component';
+import { recordComponent } from './record/record.component';
+import { RecordService } from './service/record.service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { EditDialogComponent } from './edit-dialog/edit-dialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatListModule } from '@angular/material/list';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatAccordion, MatExpansionModule } from '@angular/material/expansion';
+import { MatIconModule } from '@angular/material/icon';
+import { SearchDialogComponent } from './search-dialog/search-dialog.component';
+import { MatSortModule } from '@angular/material/sort';
+import { MatTableModule } from '@angular/material/table';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @NgModule({
   declarations: [
     AppComponent,
-    MembersComponent,
-    MemberDatailComponent,
-    MessagesComponent,
+    recordComponent,
+    RecordDatailComponent,
+    HistoryComponent,
     DashboardComponent,
     MemberSearchComponent,
+    EditDialogComponent,
+    SearchDialogComponent,
   ],
   imports: [
+    CommonModule,
     BrowserModule,
     FormsModule,
     HttpClientModule,
-    HttpClientInMemoryWebApiModule.forRoot(
-      InMemoryDataService, {dataEncapsulation: false}
-    ),
-    AppRoutingModule, // 追加
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    ReactiveFormsModule,
+    MatSelectModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatListModule,
+    MatAutocompleteModule,
+    MatExpansionModule,
+    MatIconModule,
+    MatTableModule,
+    MatSortModule,
+    MatCheckboxModule,
   ],
-  providers: [],
+  providers: [RecordService],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
-export class AppModule {}
+export class AppModule {
+  @ViewChild(MatAccordion) accordion!: MatAccordion;
+}

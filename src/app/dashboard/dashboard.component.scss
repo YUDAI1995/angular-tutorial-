@@ -1,0 +1,40 @@
+a {
+  color: #333333;
+  text-decoration: none;
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 8px 4px;
+  transition: 0.2s;
+  border-radius: 2px;
+
+  &:hover {
+    background-color: #f6eeff;
+  }
+
+  & + a {
+    margin-top: 4px;
+  }
+
+  span {
+    display: block;
+    font-size: 10px;
+    color: #9a9a9a;
+    margin-bottom: 2px;
+  }
+}
+
+@media (max-width: 600px) {
+  .module {
+    font-size: 10px;
+    max-height: 75px;
+  }
+}
+@media (max-width: 1024px) {
+  .grid {
+    margin: 0;
+  }
+  .module {
+    min-width: 60px;
+  }
+}

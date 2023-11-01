@@ -1,24 +1,30 @@
 import { Component, OnInit } from '@angular/core';
-import { Member } from '../member';
-import { MemberService } from '../member.service';
+import { RecordModel } from '../model/record.model';
+import { RecordService } from '../service/record.service';
 
 @Component({
   selector: 'app-dashbord',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css'],
+  styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent implements OnInit {
-  members: Member[] = [];
+  records: RecordModel[] = [];
+  error: string = '';
 
-  constructor(private memberService: MemberService) {}
+  constructor(private recordService: RecordService) {}
 
   ngOnInit(): void {
-    this.getMembers();
+    this.getRecords();
   }
 
-  getMembers(): void {
-    this.memberService
-      .getMembers()
-      .subscribe((members) => (this.members = members.slice(1, 5)));
+  private getRecords(): void {
+    this.recordService.getEntitys<RecordModel>().subscribe({
+      next: (record: RecordModel[]) => (this.records = record.slice(0, 5)),
+      error: (error: any) => {
+        console.error('HTTPリクエストエラー:', error);
+        this.error = 'データの取得に失敗しました。';
+      },
+      complete: () => console.info(this.records),
+    });
   }
 }

@@ -1,0 +1,28 @@
+.search-box {
+  position: fixed;
+  width: 120px;
+  top: 4px;
+  right: 80px;
+
+  .search-form {
+    max-width: 100%;
+  }
+}
+
+:host {
+  .mat-expansion-panel-header {
+    padding: 0 12px;
+    background-color: #673ab7 !important;
+  }
+
+  .mat-expansion-panel-body {
+    padding: 6px 10px;
+  }
+  .mat-expansion-panel-header-title {
+    color: #fff;
+  }
+  .mat-expansion-panel {
+    box-shadow: 0 0 !important;
+    color: #fff;
+  }
+}

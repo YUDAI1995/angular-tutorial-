@@ -1,0 +1,36 @@
+<h1 mat-dialog-title>記録をつける</h1>
+<div mat-dialog-content>
+  <form class="formWrapper" [formGroup]="recordFormControl">
+    <mat-form-field class="filed">
+      <mat-label>カテゴリ</mat-label>
+      <mat-select formControlName="category">
+        <mat-option value="0">読書</mat-option>
+        <mat-option value="1">運動</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field class="filed">
+      <mat-label>タイトル</mat-label>
+      <input matInput formControlName="title" />
+    </mat-form-field>
+    <mat-form-field class="filed">
+      <mat-label>日付</mat-label>
+      <input matInput [matDatepicker]="picker" formControlName="" />
+      <mat-datepicker #picker></mat-datepicker>
+      <mat-datepicker-toggle
+        matIconSuffix
+        [for]="picker"
+      ></mat-datepicker-toggle>
+    </mat-form-field>
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">キャンセル</button>
+  <button
+    mat-button
+    (click)="addRecord()"
+    [mat-dialog-close]="data"
+    cdkFocusInitial
+  >
+    登録
+  </button>
+</div>

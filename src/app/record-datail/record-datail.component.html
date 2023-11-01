@@ -1,0 +1,15 @@
+<div *ngIf="record">
+  <h2>{{ record.title }}</h2>
+  <ul *ngIf="record.title">
+    <li><span>id: </span> {{ record.id }}</li>
+    <li>
+      <label
+        >タイトル
+        <input type="text" [(ngModel)]="record.title" placeholder="タイトル" />
+      </label>
+    </li>
+  </ul>
+
+  <button (click)="goBack()">戻る</button>
+  <button (click)="save()">保存</button>
+</div>

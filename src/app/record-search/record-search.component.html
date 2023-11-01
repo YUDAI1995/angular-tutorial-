@@ -1,0 +1,26 @@
+<mat-accordion class="search-box" multi>
+  <mat-expansion-panel hideToggle>
+    <mat-expansion-panel-header>
+      <mat-panel-title> <mat-icon>search</mat-icon></mat-panel-title>
+    </mat-expansion-panel-header>
+
+    <mat-form-field class="search-form">
+      <input
+        #searchBox
+        type="text"
+        aria-label="検索"
+        matInput
+        [matAutocomplete]="auto"
+        (input)="search(searchBox.value)"
+      />
+      <mat-autocomplete #auto="matAutocomplete">
+        <mat-option
+          *ngFor="let record of records$ | async"
+          routerLink="/detail/{{ record.id }}"
+        >
+          {{ record.title }}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+  </mat-expansion-panel>
+</mat-accordion>

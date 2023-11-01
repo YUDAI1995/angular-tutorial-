@@ -1,16 +1,16 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { MembersComponent } from './members/members.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { MemberDatailComponent } from './member-datail/member-datail.component';
-
-// routingを設定するファイル
+import { recordComponent } from './record/record.component';
+import { RecordDatailComponent } from './record-datail/record-datail.component';
+import { HistoryComponent } from './history/history.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
-  { path: 'members', component: MembersComponent },
-  { path: 'detail/:id', component: MemberDatailComponent },
+  { path: 'list', component: recordComponent },
+  { path: 'detail/:id', component: RecordDatailComponent },
   { path: 'dashboard', component: DashboardComponent },
+  { path: 'history', component: HistoryComponent },
 ];
 
 @NgModule({

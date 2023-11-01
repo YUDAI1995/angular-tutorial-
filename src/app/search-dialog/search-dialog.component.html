@@ -1,0 +1,27 @@
+<h2 mat-dialog-title>検索</h2>
+<div mat-dialog-content>
+  <mat-form-field class="search-form">
+    <input
+      #searchBox
+      type="text"
+      aria-label="検索"
+      matInput
+      (input)="search(searchBox.value)"
+      autocomplete="off"
+      name="search"
+    />
+  </mat-form-field>
+
+  <mat-list>
+    <mat-list-item
+      *ngFor="let record of records$ | async"
+      (click)="onDetail(record.id)"
+    >
+      {{ record.title }}</mat-list-item
+    >
+  </mat-list>
+  <p class="notFound" *ngIf="!(records$ | async)?.length">検索結果なし</p>
+</div>
+<div mat-dialog-actions style="justify-content: center">
+  <button mat-button (click)="onCloce()">閉じる</button>
+</div>
