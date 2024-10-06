@@ -3,21 +3,15 @@
     <h1>{{ title }}</h1>
 
     <nav>
-      <a mat-flat-button color="primary" routerLink="/dashboard"
-        >ダッシュボード</a
-      >
-      <a mat-flat-button color="primary" routerLink="/list">一覧</a>
-      <a mat-flat-button color="primary" routerLink="/history">履歴</a>
+      <a mat-flat-button routerLink="/dashboard">ダッシュボード</a>
+      <a mat-flat-button routerLink="/list">一覧</a>
+      <a mat-flat-button routerLink="/history">履歴</a>
     </nav>
   </section>
 
   <div class="buttonWrapper">
-    <button mat-flat-button color="primary" (click)="openEditDialog()">
-      登録
-    </button>
-    <button mat-flat-button color="primary" (click)="openSearchDialog()">
-      検索
-    </button>
+    <button mat-flat-button (click)="openEditDialog()">登録</button>
+    <button mat-flat-button (click)="openSearchDialog()">検索</button>
   </div>
 </header>
 <router-outlet></router-outlet>
